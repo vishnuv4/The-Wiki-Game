@@ -40,16 +40,11 @@ def get_next_link(shuffled_links):
     
     return None
 
-page_ctr = 0
 def scrape_wikipedia_article(url, pages):
     soup, response_url = get_soup_from_url(url)
     title = get_title(soup)
     shuffled_links = find_and_shuffle_links(soup)
     next_link, link_text = get_next_link(shuffled_links)
-
-    global page_ctr
-    write_soup_to_file(soup, f"game1\\page{page_ctr}.html")
-    page_ctr += 1
 
     pages[title] = [response_url, link_text]
 
@@ -156,4 +151,4 @@ if __name__ == "__main__":
     print(f"{Fore.CYAN}")
     print_section(2)
     print(50*"=")
-    print()
+    print(f"{Style.RESET_ALL}")
