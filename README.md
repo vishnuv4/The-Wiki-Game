@@ -1,4 +1,4 @@
-# The-Wiki-Game
+# The Wiki Game
 
 A game that tests your ability to hunt for information.
 
