@@ -23,3 +23,9 @@ Thanks for playing!
 
 Press ENTER to show the solution.
 Type hint/h to display a hint. 
+
+#5
+
+You may adjust the difficulty by setting the number of hops in the fastest solution.
+The default is 3.
+Press Enter to proceed with that, or press the number you want in order to go that many hops.

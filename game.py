@@ -6,9 +6,10 @@ import os
 import pandas as pd
 from tabulate import tabulate
 from colorama import Fore, Style
-import sys
+import textwrap
 
-HOPS = 2
+HOPS = 3
+WIDTH = 100
 
 def get_soup_from_url(url):
     response = requests.get(url)
@@ -55,24 +56,22 @@ def wikipedia_crawler(max_hops):
     start_url = scrape_wikipedia_article(f"https://en.wikipedia.org/wiki/Special:Random", pages)
     current_url = start_url
 
-    print(f"\nGet from the first link to the second in {HOPS} hops!\n")
+    print(f"\nGet from the first link to the second in {max_hops} hops!\n")
 
     print(f"{Fore.LIGHTBLACK_EX}")
     for i in range(max_hops):
         current_url = scrape_wikipedia_article(current_url, pages)
-        print(f"Loaded page {i+1}...")
-        time.sleep(1)
+        print(f"{f'Loaded page {i+1}...':^{WIDTH}}")
+        time.sleep(0.1)
     
-    print("Loading complete.")
+    print(f"{'Loading complete.':^{WIDTH}}")
     print(f"{Style.RESET_ALL}")
 
-    # Extract first and last entries
     first_key = list(pages)[0]
     first_url = pages[first_key][0]
     last_key = list(pages)[-1]
     last_url = pages[last_key][0]
 
-    # Create a DataFrame with START and END labels
     data = {
         "POSITION": ["START", "END"],
         "PAGE TITLE": [first_key, last_key],
@@ -126,12 +125,12 @@ def print_section(section_num: int):
     with open("text.txt", "r") as file:
         readlines = file.readlines()
     
-    lines = [l[:-1] for l in readlines]
+    lines = [l.strip() for l in readlines]
 
-    print_lines = []
     print_flag = False
+
     for line in lines:
-        if line != '' and line[0] == "#":
+        if line.startswith("#"):
             if int(line[1]) == section_num:
                 print_flag = True
             else:
@@ -139,16 +138,36 @@ def print_section(section_num: int):
             continue
         
         if print_flag:
-            print(f"{line:^50}")
+            wrapped_lines = textwrap.wrap(line, width=WIDTH)
+            for wrapped_line in wrapped_lines:
+                print(f"{wrapped_line:^{WIDTH}}")
     
+def set_hops():
+    print(f"{Fore.BLUE}")
+    print_section(5)
+    print()
+    while True:
+        hops = input(f"{Fore.CYAN}Change the hop number?\n{Fore.BLUE}>> ")
+        match hops:
+            case "":
+                print("No change to hops, setting hop count to 3.")
+                return HOPS
+            case str(num) if num.isdigit():
+                hops = int(num)
+                print(f"Hops changed to {hops}.")
+                return hops
+            case _:
+                print(f"{Fore.LIGHTRED_EX}Invalid input. Please enter a number or press Enter to skip.{Fore.BLUE}")
+
 if __name__ == "__main__":
     print(f"{Style.RESET_ALL}")
     print(f"{Fore.BLUE}")
     print_section(1)
     print(f"{Fore.CYAN}")
     print_section(4)
-    wikipedia_crawler(HOPS)
+    hops = set_hops()
+    wikipedia_crawler(hops)
     print(f"{Fore.CYAN}")
     print_section(2)
-    print(50*"=")
+    print(WIDTH*"=")
     print(f"{Style.RESET_ALL}")
