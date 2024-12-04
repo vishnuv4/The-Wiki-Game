@@ -1,0 +1,25 @@
+#1
+
+/***********************************************/
+/                                               /
+/               THE WIKI GAME                   /
+/                                               /
+/***********************************************/
+
+#4
+
+Welcome to the wiki game!
+The aim of this game is to the destination page.
+
+You start at a given wikipedia page.
+Your aim is to get to the end.
+But only by clicking hyperlinks in each page.
+
+#2
+
+Thanks for playing!
+
+#3
+
+Press ENTER to show the solution.
+Type hint/h to display a hint. 
