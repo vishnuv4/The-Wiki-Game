@@ -1,8 +1,8 @@
 # The Wiki Game
 
-A command line game that tests your ability to hunt for information.
+A command line game based on my inability to stay focused when I look up something on Wikipedia. 
 
-You're given two Wikipedia links. Get from one link to the other only by hopping links in the bodies of the Wikipedia pages.
+The aim of the game is to get from one page to another strictly by link-hopping through the links on each Wikipedia page.
 
 ## Requirements
 
